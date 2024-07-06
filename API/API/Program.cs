@@ -1,3 +1,5 @@
+using API.Contracts.Artists.Request;
+using Application.Artists.CommandsHandler;
 using Dal;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(ArtistCreateCommandHandler).Assembly));
 
 var app = builder.Build();
 

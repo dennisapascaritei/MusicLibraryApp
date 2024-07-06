@@ -1,0 +1,14 @@
+﻿global using Application.Models;
+global using Domain.Models;
+global using MediatR;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using Application.Artists.Commands;
+global using Application.Enums;
+global using Dal;
+global using Microsoft.EntityFrameworkCore;
+global using Application.Albums.Commands;
+global using Application.Songs.Commands;

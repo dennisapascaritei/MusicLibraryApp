@@ -25,6 +25,7 @@ namespace Dal.Migrations
             modelBuilder.Entity("Domain.Models.Album", b =>
                 {
                     b.Property<Guid>("AlbumId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ArtistId")
@@ -39,6 +40,8 @@ namespace Dal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AlbumId");
+
+                    b.HasIndex("ArtistId");
 
                     b.ToTable("Albums");
                 });
@@ -61,6 +64,7 @@ namespace Dal.Migrations
             modelBuilder.Entity("Domain.Models.Song", b =>
                 {
                     b.Property<Guid>("SongId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AlbumId")
@@ -75,25 +79,25 @@ namespace Dal.Migrations
 
                     b.HasKey("SongId");
 
+                    b.HasIndex("AlbumId");
+
                     b.ToTable("Songs");
                 });
 
             modelBuilder.Entity("Domain.Models.Album", b =>
                 {
-                    b.HasOne("Domain.Models.Artist", "Artist")
+                    b.HasOne("Domain.Models.Artist", null)
                         .WithMany("Albums")
-                        .HasForeignKey("AlbumId")
+                        .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Artist");
                 });
 
             modelBuilder.Entity("Domain.Models.Song", b =>
                 {
                     b.HasOne("Domain.Models.Album", "Album")
                         .WithMany("Songs")
-                        .HasForeignKey("SongId")
+                        .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -7,8 +7,8 @@ namespace Dal.Configuration
         {
             builder.HasKey(ar => ar.ArtistId);
             builder.HasMany<Album>(ar => ar.Albums)
-                .WithOne(al => al.Artist)
-                .HasForeignKey(al => al.AlbumId);
+                .WithOne()
+                .HasForeignKey(al => al.ArtistId);
         }
     }
 }

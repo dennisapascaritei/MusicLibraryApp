@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dal.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240704220652_Initial")]
+    [Migration("20240706000017_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,6 +28,7 @@ namespace Dal.Migrations
             modelBuilder.Entity("Domain.Models.Album", b =>
                 {
                     b.Property<Guid>("AlbumId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ArtistId")
@@ -42,6 +43,8 @@ namespace Dal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AlbumId");
+
+                    b.HasIndex("ArtistId");
 
                     b.ToTable("Albums");
                 });
@@ -64,6 +67,7 @@ namespace Dal.Migrations
             modelBuilder.Entity("Domain.Models.Song", b =>
                 {
                     b.Property<Guid>("SongId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AlbumId")
@@ -78,6 +82,8 @@ namespace Dal.Migrations
 
                     b.HasKey("SongId");
 
+                    b.HasIndex("AlbumId");
+
                     b.ToTable("Songs");
                 });
 
@@ -85,7 +91,7 @@ namespace Dal.Migrations
                 {
                     b.HasOne("Domain.Models.Artist", "Artist")
                         .WithMany("Albums")
-                        .HasForeignKey("AlbumId")
+                        .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -96,7 +102,7 @@ namespace Dal.Migrations
                 {
                     b.HasOne("Domain.Models.Album", "Album")
                         .WithMany("Songs")
-                        .HasForeignKey("SongId")
+                        .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
