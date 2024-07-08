@@ -17,6 +17,10 @@ namespace Application.Songs.CommandsHandler
 
                 _ctx.Songs.Add(newSong);
                 await _ctx.SaveChangesAsync(cancellationToken);
+
+                _result.Payload = newSong;
+
+                return _result;
             }
             catch (Exception ex)
             {

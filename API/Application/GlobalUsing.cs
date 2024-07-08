@@ -12,3 +12,6 @@ global using Dal;
 global using Microsoft.EntityFrameworkCore;
 global using Application.Albums.Commands;
 global using Application.Songs.Commands;
+global using Application.Albums.Queries;
+global using Application.Artists.Queries;
+global using Application.Songs.Queries;

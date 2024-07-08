@@ -1,15 +1,4 @@
-﻿using API.Contracts.Artists.Request;
-using API.Contracts.Artists.Response;
-using API.Filters;
-using Application.Artists.Commands;
-using Application.Artists.Queries;
-using AutoMapper;
-using Dal;
-using Domain.Models;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace API.Controllers
 {
     [Route("api/[controller]")]

@@ -1,6 +1,4 @@
 ﻿
-using Application.Albums.Queries;
-
 namespace Application.Albums.QueriesHandler
 {
     public class GetAllAlbumsQueryHandler : IRequestHandler<GetAllAlbumsQuery, OperationResult<List<Album>>>
@@ -15,15 +13,19 @@ namespace Application.Albums.QueriesHandler
         {
             try
             {
-                var albums = request.ArtistId != null
-                    ? await _ctx.Albums
-                        .Include(a => a.Songs)
-                        .Where(a => a.ArtistId == request.ArtistId)
-                        .ToListAsync(cancellationToken)
-                    : await _ctx.Albums
+                var albums = await _ctx.Albums
                         .Include(a => a.Songs)
                         .ToListAsync(cancellationToken);
 
+                if (request.ArtistId != null)
+                {
+                    albums = await _ctx.Albums
+                        .Include(a => a.Songs)
+                        .Where(a => a.ArtistId == request.ArtistId)
+                        .ToListAsync(cancellationToken);
+                    _result.AddError(ErrorCode.NotFound, AlbumErrorMessages.AlbumListIsEmpty);
+                    return _result;
+                }
 
                 if (albums.Count == 0)
                 {

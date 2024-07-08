@@ -7,20 +7,23 @@ import { ViewArtistsComponent } from './components/view-artists/view-artists.com
 import { HttpClientModule } from '@angular/common/http';
 import { ViewEditArtistComponent } from './components/view-edit-artist/view-edit-artist.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewAlbumComponent } from './components/view-album/view-album.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewArtistsComponent,
     ViewEditArtistComponent,
-    NavbarComponent
+    NavbarComponent,
+    ViewAlbumComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

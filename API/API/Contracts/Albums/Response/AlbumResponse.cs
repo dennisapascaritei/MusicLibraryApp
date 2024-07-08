@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-
+﻿
 namespace API.Contracts.Albums.Response
 {
     public class AlbumResponse

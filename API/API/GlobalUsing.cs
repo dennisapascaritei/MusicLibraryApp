@@ -14,3 +14,13 @@ global using API.Contracts.Albums.Request;
 global using API.Contracts.Albums.Response;
 global using Application.Albums.Commands;
 global using API.Contracts.Songs.Response;
+global using API.Contracts.Songs.Request;
+global using System.ComponentModel.DataAnnotations;
+global using API.Contracts.Common;
+global using Application.Enums;
+global using Application.Models;
+global using Application.Songs.Commands;
+global using Application.Songs.Queries;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Application.Artists.CommandsHandler;
+

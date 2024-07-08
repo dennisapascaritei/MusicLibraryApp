@@ -79,8 +79,9 @@ namespace API.Controllers
             var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
+            var mapped = _mapper.Map<AlbumResponse>(result.Payload);
 
-            return NoContent();
+            return Ok(mapped);
         }
 
         [HttpDelete]

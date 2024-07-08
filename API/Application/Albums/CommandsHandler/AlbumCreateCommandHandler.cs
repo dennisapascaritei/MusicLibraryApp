@@ -1,7 +1,4 @@
 ﻿
-
-using Domain.Models;
-
 namespace Application.Albums.CommandsHandler
 {
     public class AlbumCreateCommandHandler : IRequestHandler<AlbumCreateCommand, OperationResult<Album>>

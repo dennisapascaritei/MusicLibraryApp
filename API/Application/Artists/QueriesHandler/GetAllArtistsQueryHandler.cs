@@ -1,5 +1,4 @@
 ﻿
-using Application.Artists.Queries;
 
 namespace Application.Artists.QueriesHandler
 {

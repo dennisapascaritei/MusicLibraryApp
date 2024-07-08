@@ -1,5 +1,4 @@
 ﻿
-
 namespace API.Mappings
 {
     public class Mappings : Profile

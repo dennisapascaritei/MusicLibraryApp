@@ -1,8 +1,4 @@
-﻿using API.Contracts.Common;
-using Application.Enums;
-using Application.Models;
-using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace API.Controllers
 {
     public class BaseController : Controller

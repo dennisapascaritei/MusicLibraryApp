@@ -1,6 +1,4 @@
 ﻿
-using Application.Albums.Queries;
-
 namespace Application.Albums.QueriesHandler
 {
     public class GetAlbumByIdQueryHandler : IRequestHandler<GetAlbumByIdQuery, OperationResult<Album>>

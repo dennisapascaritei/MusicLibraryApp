@@ -1,0 +1,5 @@
+.description-container {
+    white-space: pre-wrap;  /* Wrap the text */
+    word-break: break-word; /* Break long words */
+    overflow: hidden;       /* Hide overflow if any */
+}

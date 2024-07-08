@@ -1,5 +1,4 @@
-﻿using Application.Enums;
-
+﻿
 namespace Application.Models
 {
     public class Error

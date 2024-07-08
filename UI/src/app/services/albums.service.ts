@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Album } from '../models/album';
 import { environment } from '../../environments/environment';
@@ -13,8 +13,13 @@ export class AlbumsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllAlbums(): Observable<Album[]>{
-    return this.httpClient.get<Album[]>(`${environment.apiUrl}/${this.url}`)
+  getAllAlbums(artistId?: string): Observable<Album[]> {
+    let params = new HttpParams();
+    if (artistId) {
+      params = params.append('artistId', artistId);
+    }
+
+    return this.httpClient.get<Album[]>(`${environment.apiUrl}/${this.url}`, { params });
   }
 
   getAlbumById(id: any) {
@@ -25,10 +30,10 @@ export class AlbumsService {
   }
 
   updateAlbum(updateAlbum: Album): Observable<Album>{
-    return this.httpClient.post<Album>(`${environment.apiUrl}/${this.url}`, updateAlbum)
+    return this.httpClient.put<Album>(`${environment.apiUrl}/${this.url}`, updateAlbum)
   }
 
-  deleteAlbum(id: any) {
-    return this.httpClient.delete<Album>(`${environment.apiUrl}/${this.url}/${id}`)
+  deleteAlbum(albumId: any) {
+    return this.httpClient.delete<Album>(`${environment.apiUrl}/${this.url}/${albumId}`)
   }
 }

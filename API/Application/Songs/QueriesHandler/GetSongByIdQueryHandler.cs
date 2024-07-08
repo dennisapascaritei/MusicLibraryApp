@@ -1,6 +1,4 @@
 ﻿
-using Application.Songs.Queries;
-
 namespace Application.Songs.QueriesHandler
 {
     public class GetSongByIdQueryHandler : IRequestHandler<GetSongByIdQuery, OperationResult<Song>>

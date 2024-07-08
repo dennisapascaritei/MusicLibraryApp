@@ -1,0 +1,144 @@
+<div class="container mt-5">
+    <!-- Back Button -->
+    <button class="btn btn-outline-primary mb-3" (click)="goBack()"><i class="bi bi-arrow-left"></i> Back</button>
+    
+    <div class="row">
+        <div class="col-md-4">
+
+            <!-- Left Card (Album Details) -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h5 class="card-title"><i class="bi bi-music-note"></i> Album Details</h5>
+                        <button class="btn btn-outline-primary" (click)="toggleAlbumsEditMode()"><div class="bi bi-pencil-fill"></div></button>
+                    </div>
+
+                    <!-- Left Card Edit Mode On-->
+                    <form *ngIf="showAlbumEditMode" (ngSubmit)="updateAlbum(album)" #updateAlbumForm="ngForm">
+                        <div class="mb-3">
+                            <label for="albumTitle" class="form-label">Title: </label>
+                            <input name="albumTitle" [(ngModel)]="album.title" type="text" class="form-control" id="albumTitle" placeholder="" required #albumTitle="ngModel">
+                            <div *ngIf="updateAlbumForm.submitted && albumTitle.invalid" class="text-danger">
+                                Title is required.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="albumDescription" class="form-label">Description: </label>
+                            <input name="albumDescription" [(ngModel)]="album.description" type="text" class="form-control" id="albumDescription" placeholder="" required #albumDescription="ngModel">
+                            <div *ngIf="updateAlbumForm.submitted && albumDescription.invalid" class="text-danger">
+                                Description is required.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3 w-100">Update Album</button>
+                        <button type="button" class="btn btn-danger mt-3 w-100" (click)="deleteAlbum(album.albumId)">Delete Album</button>
+                    </form>
+
+                    <!-- Left Card Edit Mode Off-->
+                     <table *ngIf="!showAlbumEditMode">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Title:
+                                </td>
+                                <td>
+                                    {{album.title}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Description:
+                                </td>
+                                <td class="description-container">
+                                    {{album.description}}
+                                </td>
+                            </tr>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="col-md-8">
+            <!-- Right Card (Songs List) -->
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Title and Edit toggle -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title">Songs List</h5>
+                        <button class="btn btn-outline-primary" (click)="toggleSongsEditMode()"><div class="bi bi-pencil-fill"></div></button>
+                    </div>
+
+                    <!-- Songs Data Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Length</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="showSongEditMode">
+                                <tr *ngFor="let song of album.songs">
+                                    <td>
+                                        <input [(ngModel)]="song.title" type="text" class="form-control" placeholder="Enter song title">
+                                    </td>
+                                    <td>
+                                        <input [(ngModel)]="song.length" type="timespan" class="form-control" placeholder="Enter song length">
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-primary rounded-2 me-2" (click)="updateSong(song)">Update</button>
+                                            <button class="btn btn-sm btn-outline-danger rounded-2" (click)="deleteSong(song.songId)">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!showSongEditMode">
+                                <tr *ngFor="let song of album.songs">
+                                    <td>
+                                        {{song.title}}
+                                    </td>
+                                    <td>
+                                        {{song.length}}
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-danger rounded-2" (click)="deleteSong(song.songId)">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form for new Song -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Add New Song</h5>
+                    <form (ngSubmit)="createSong(newSong, album.albumId, newSongForm)" #newSongForm="ngForm">
+                        <div class="mb-3">
+                            <label for="newSongTitle" class="form-label">Song Title</label>
+                            <input [(ngModel)]="newSong.title" name="newSongTitle" type="text" class="form-control" id="newSongTitle" placeholder="Enter song title" required #newSongTitle="ngModel">
+                            <div *ngIf="newSongForm.submitted && newSongTitle.invalid" class="text-danger">
+                                Title is required.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newSongLength" class="form-label">Song Length</label>
+                            <input [(ngModel)]="newSong.length" name="newSongLength" type="timespan" class="form-control" id="newSongLength" placeholder="Enter song length: 00:00:00" pattern="^([0-1]\d|2[0-3]):([0-5]\d):([0-5]\d)$" required #newSongLength="ngModel">
+                            <div *ngIf="newSongForm.submitted && newSongLength.invalid" class="text-danger">
+                                Length must be in the format HH:MM:SS.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,18 +13,16 @@ export class ViewArtistsComponent implements OnInit{
     showAddArtistForm = false;
   
     constructor(private artistsService: ArtistsService){}
+
     ngOnInit(): void {
       this.loadArtists();
     }
 
+    //Artist methods
     loadArtists() {
       this.artistsService.getAllArtists().subscribe((data: Artist[]) => {
         this.artists = data;
       });
-    }
-
-    toggleAddArtistForm() {
-      this.showAddArtistForm = !this.showAddArtistForm;
     }
 
     addArtist(newArtist: Artist) {
@@ -40,12 +38,16 @@ export class ViewArtistsComponent implements OnInit{
     deleteArtist(artist: Artist): void {
       this.artistsService.deleteArtist(artist.artistId).subscribe(
           () => {
-              console.log('Artist deleted successfully');
               this.loadArtists();
           },
           (error) => {
               console.error('Error deleting artist:', error);
           }
       );
-  }
+    }
+    
+    //Functional methods
+    toggleAddArtistForm() {
+      this.showAddArtistForm = !this.showAddArtistForm;
+    }
   }

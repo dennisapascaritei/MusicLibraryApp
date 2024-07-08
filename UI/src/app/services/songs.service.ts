@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class SongsService {
-
+  
   url = 'Song'
 
   constructor(private httpClient: HttpClient) { }
@@ -22,5 +22,12 @@ export class SongsService {
   }
   createSong(newSong: Song): Observable<Song>{
     return this.httpClient.post<Song>(`${environment.apiUrl}/${this.url}`, newSong)
+  }
+  updateSong(updatedSong: Song) {
+    return this.httpClient.put<Song>(`${environment.apiUrl}/${this.url}`, updatedSong)
+  }
+
+  deleteSong(songId: string) {
+    return this.httpClient.delete<void>(`${environment.apiUrl}/${this.url}/${songId}`)
   }
 }

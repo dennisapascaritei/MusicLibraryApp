@@ -1,15 +1,4 @@
-﻿using API.Contracts.Songs.Request;
-using API.Contracts.Songs.Response;
-using API.Filters;
-using Application.Songs.Commands;
-using Application.Songs.Queries;
-using AutoMapper;
-using Dal;
-using Domain.Models;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace API.Controllers
 {
     [Route("api/[controller]")]
@@ -90,11 +79,14 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteSong(SongDeleteRequest song, CancellationToken cancellationToken)
+        [Route("{songId}")]
+        [ValidateGuid("songId")]
+
+        public async Task<IActionResult> DeleteSong(string songId, CancellationToken cancellationToken)
         {
             var command = new SongDeleteCommand
             {
-                SongId = song.SongId
+                SongId = Guid.Parse(songId)
             };
             var result = await _mediator.Send(command, cancellationToken);
 

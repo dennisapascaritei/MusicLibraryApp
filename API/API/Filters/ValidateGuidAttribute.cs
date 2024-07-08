@@ -1,7 +1,4 @@
-﻿using API.Contracts.Common;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-
+﻿
 namespace API.Filters
 {
     public class ValidateGuidAttribute : ActionFilterAttribute
