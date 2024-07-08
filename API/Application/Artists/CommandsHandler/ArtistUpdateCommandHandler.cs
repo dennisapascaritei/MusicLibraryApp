@@ -27,6 +27,8 @@ namespace Application.Artists.CommandsHandler
 
                 _ctx.Artists.Update(artist);
                 await _ctx.SaveChangesAsync(cancellationToken);
+
+                _result.Payload = artist;
             }
             catch (Exception ex)
             {

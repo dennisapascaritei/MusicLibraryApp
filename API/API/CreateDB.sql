@@ -35,3 +35,7 @@ CREATE TABLE Songs (
     FOREIGN KEY (AlbumId) REFERENCES Album(AlbumId)
 );
 GO
+
+
+EXEC sp_help 'Artists';
+EXEC sp_help 'Albums';

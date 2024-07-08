@@ -15,9 +15,15 @@ namespace Application.Albums.QueriesHandler
         {
             try
             {
-                var albums = await _ctx.Albums
-                    .Include(a => a.Songs)
-                    .ToListAsync(cancellationToken);
+                var albums = request.ArtistId != null
+                    ? await _ctx.Albums
+                        .Include(a => a.Songs)
+                        .Where(a => a.ArtistId == request.ArtistId)
+                        .ToListAsync(cancellationToken)
+                    : await _ctx.Albums
+                        .Include(a => a.Songs)
+                        .ToListAsync(cancellationToken);
+
 
                 if (albums.Count == 0)
                 {

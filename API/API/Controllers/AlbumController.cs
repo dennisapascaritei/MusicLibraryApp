@@ -17,15 +17,20 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAlbums(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllAlbums(CancellationToken cancellationToken, string? artistId = null)
         {
-            var result = await _mediator.Send(new GetAllAlbumsQuery(), cancellationToken);
+            var query = string.IsNullOrEmpty(artistId) ? new GetAllAlbumsQuery() : new GetAllAlbumsQuery()
+            {
+                ArtistId = Guid.Parse(artistId)
+            };
+            var result = await _mediator.Send(query, cancellationToken);
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
             var mapped = _mapper.Map<List<AlbumResponse>>(result.Payload);
 
             return Ok(mapped);
         }
+
 
         [HttpGet]
         [Route("{albumId}")]
@@ -79,11 +84,13 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAlbum(AlbumDeleteRequest album, CancellationToken cancellationToken)
+        [Route("{albumId}")]
+        [ValidateGuid("albumId")]
+        public async Task<IActionResult> DeleteAlbum(string albumId, CancellationToken cancellationToken)
         {
             var command = new AlbumDeleteCommand
             {
-                AlbumId = album.AlbumId
+                AlbumId = Guid.Parse(albumId)
             };
             var result = await _mediator.Send(command, cancellationToken);
 

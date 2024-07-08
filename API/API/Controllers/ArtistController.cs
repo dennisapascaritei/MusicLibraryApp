@@ -81,16 +81,19 @@ namespace API.Controllers
             var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
+            var mapped = _mapper.Map<ArtistResponse>(result.Payload);
 
-            return NoContent();
+            return Ok(mapped);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteArtist(ArtistDeleteRequest artist, CancellationToken cancellationToken)
+        [Route("{artistId}")]
+        [ValidateGuid("{artistId}")]
+        public async Task<IActionResult> DeleteArtist(string artistId, CancellationToken cancellationToken)
         {
             var command = new ArtistDeleteCommand
             {
-                ArtistId = artist.ArtistId
+                ArtistId = Guid.Parse(artistId)
             };
             var result = await _mediator.Send(command, cancellationToken);
 

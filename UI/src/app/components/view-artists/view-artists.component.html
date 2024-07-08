@@ -1,0 +1,62 @@
+<!-- Updated Artists List -->
+<!-- <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Artists</h2>
+        <button class="btn btn-outline-primary">Add New Artist</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr *ngFor="let artist of artists" routerLink="/artists/{{artist.artistId}}">
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ artist.name }}</span>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-primary rounded-2 me-2">View Artist</button>
+                                <button class="btn btn-sm btn-outline-danger rounded-2">Delete Artist</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+<!-- Updated Artists List -->
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Artists</h2>
+        <button class="btn btn-outline-primary" (click)="toggleAddArtistForm()">Add New Artist</button>
+    </div>
+    
+    <!-- Form to Add New Artist -->
+    <div *ngIf="showAddArtistForm" class="mb-3">
+        <form (ngSubmit)="addArtist(newArtist)">
+            <div class="mb-3">
+                <label for="newArtistName" class="form-label">Artist Name</label>
+                <input [(ngModel)]="newArtist.name" name="newArtistName" type="text" class="form-control" id="newArtistName" placeholder="Enter artist name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary ms-2" (click)="toggleAddArtistForm()">Cancel</button>
+        </form>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr *ngFor="let artist of artists">
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ artist.name }}</span>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-primary rounded-2 me-2" routerLink="/artists/{{artist.artistId}}">View Artist</button>
+                                <button class="btn btn-sm btn-outline-danger rounded-2" (click)="deleteArtist(artist)">Delete Artist</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

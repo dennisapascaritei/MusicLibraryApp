@@ -22,6 +22,8 @@ namespace Application.Albums.CommandsHandler
                 _ctx.Albums.Add(newAlbum);
 
                 await _ctx.SaveChangesAsync(cancellationToken);
+
+                _result.Payload = newAlbum;
             }
             catch (Exception ex)
             {
