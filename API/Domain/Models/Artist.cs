@@ -1,16 +1,30 @@
-﻿namespace Domain.Models
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using JsonConstructorAttribute = Newtonsoft.Json.JsonConstructorAttribute;
+
+namespace Domain.Models
 {
     public class Artist
     {
+        [JsonConstructor]
+        internal Artist(string name, List<Album> albums)
+        {
+            ArtistId = Guid.NewGuid();
+            Name = name;
+            Albums = albums ?? new List<Album>();
+        }
+
         private Artist() { }
         internal Artist(string name)
         {
-            ArtistId = new Guid();
+            ArtistId = Guid.NewGuid();
             Name = name;
         }
 
         public Guid ArtistId { get; private set; }
+        [JsonProperty("name")]
         public string Name { get; private set; }
+        [JsonProperty("albums")]
         public List<Album> Albums { get; private set; } = new List<Album>();
 
 

@@ -1,8 +1,20 @@
 ﻿
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using JsonConstructorAttribute = Newtonsoft.Json.JsonConstructorAttribute;
+
 namespace Domain.Models
 {
     public class Song
     {
+        [JsonConstructor]
+        internal Song(string title, TimeSpan length)
+        {
+            SongId = Guid.NewGuid();
+            Title = title;
+            Length = length;
+        }
+
         public Song() { }
         internal Song(string title, TimeSpan length, Guid albumId)
         {
@@ -13,7 +25,9 @@ namespace Domain.Models
         }
 
         public Guid SongId { get; private set; }
+        [JsonProperty("title")]
         public string Title { get; private set; }
+        [JsonProperty("length")]
         public TimeSpan Length { get; private set; } = TimeSpan.Zero;
         public Guid AlbumId { get; private set; }
 

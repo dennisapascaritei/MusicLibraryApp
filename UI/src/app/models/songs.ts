@@ -3,4 +3,5 @@ export class Song {
     title: string = ""
     length: string = ""
     albumId: string = ""
+    highlighted: boolean = false
 }

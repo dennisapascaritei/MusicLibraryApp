@@ -4,7 +4,7 @@ import { Song } from '../../models/songs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlbumsService } from '../../services/albums.service';
 import { SongsService } from '../../services/songs.service';
-import { NgForm, NgModel } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -16,8 +16,8 @@ import { NgForm, NgModel } from '@angular/forms';
 export class ViewAlbumComponent {
 
   album: Album = new Album();
-  songs: Song[] = [];
   newSong: Song = new Song ();
+  songId: string = "";
 
   showSongEditMode: boolean = false;
   showAlbumEditMode: boolean = false;
@@ -30,7 +30,10 @@ export class ViewAlbumComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getAlbum();
+    this.route.queryParams.subscribe(params => {
+      this.songId = params['songId']; 
+      this.getAlbum(); 
+    });
   };
 
 
@@ -38,7 +41,12 @@ export class ViewAlbumComponent {
   getAlbum(): void {
     const id = String(this.route.snapshot.paramMap.get('id'));
     this.albumsService.getAlbumById(id)
-      .subscribe(art => this.album = art);
+      .subscribe(album => {
+        this.album = album
+        if (this.songId) {
+          this.highlightSong(this.songId);
+        }
+    });
   }
 
   updateAlbum(updatedAlbum: Album): void {
@@ -115,5 +123,14 @@ export class ViewAlbumComponent {
   
   toggleAlbumsEditMode() {
     this.showAlbumEditMode = !this.showAlbumEditMode
+  }
+
+  highlightSong(songId: string): void {
+    this.album.songs.forEach( song => song.highlighted = false)
+    const songToHighlight = this.album.songs.find(song => song.songId === songId);
+
+    if (songToHighlight) {
+      songToHighlight.highlighted = true
+    }
   }
 }

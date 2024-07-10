@@ -1,0 +1,8 @@
+.search-dropdown {
+    top: calc(100% + 5px); 
+    left: 0;
+}
+
+.dropdown-item {
+    white-space: nowrap; 
+}

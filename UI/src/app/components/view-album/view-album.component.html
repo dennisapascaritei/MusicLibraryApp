@@ -3,7 +3,7 @@
     <button class="btn btn-outline-primary mb-3" (click)="goBack()"><i class="bi bi-arrow-left"></i> Back</button>
     
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
 
             <!-- Left Card (Album Details) -->
             <div class="card">
@@ -45,7 +45,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td style="vertical-align: top;">
                                     Description:
                                 </td>
                                 <td class="description-container">
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Right Section -->
-        <div class="col-md-8">
+        <div class="col-md-7">
             <!-- Right Card (Songs List) -->
             <div class="card">
                 <div class="card-body">
@@ -80,6 +80,7 @@
                                     <th class="text-end">Actions</th>
                                 </tr>
                             </thead>
+                            <!-- Song List Edit Mode On -->
                             <tbody *ngIf="showSongEditMode">
                                 <tr *ngFor="let song of album.songs">
                                     <td>
@@ -96,8 +97,10 @@
                                     </td>
                                 </tr>
                             </tbody>
+                            
+                            <!-- Song List Edit Mode Off -->
                             <tbody *ngIf="!showSongEditMode">
-                                <tr *ngFor="let song of album.songs">
+                                <tr *ngFor="let song of album.songs" [class.highlighted]="song.highlighted">
                                     <td>
                                         {{song.title}}
                                     </td>

@@ -23,4 +23,4 @@ global using Application.Songs.Commands;
 global using Application.Songs.Queries;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using Application.Artists.CommandsHandler;
-
+global using API.Contracts.SearchResult.Response;

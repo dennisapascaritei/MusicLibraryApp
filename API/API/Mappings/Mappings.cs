@@ -7,6 +7,7 @@ namespace API.Mappings
             CreateMap<Artist, ArtistResponse>();
             CreateMap<Album, AlbumResponse>();
             CreateMap<Song, SongResponse>();
+            CreateMap<SearchResult, SearchResultResponse>();
         }
     }
 }
