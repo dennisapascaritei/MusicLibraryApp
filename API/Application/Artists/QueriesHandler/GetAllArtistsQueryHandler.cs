@@ -15,7 +15,6 @@ namespace Application.Artists.QueriesHandler
             try
             {
                 var artists = await _ctx.Artists
-                    .Include(a => a.Albums)
                     .ToListAsync(cancellationToken);
 
                 if (artists.Count == 0)
